@@ -1,6 +1,6 @@
 baseURL: "https://example.com"
 title: Andy Pagdin - Software Engineer
-paginate: 8
+paginate: 5
 theme: hugo-PaperMod
 enableInlineShortcodes: true
 enableRobotsTXT: true
@@ -10,31 +10,24 @@ minify:
   minifyOutput: true
 
 params:
-  # env: production
+  env: production
   description: "Andy Pagdin - Personal Website"
-  author: Andy Pagdin
-  ShowReadingTime: true
+  ShowReadingTime: false
   defaultTheme: dark
-  # images: ""
   assets:
     favicon: '<path / external url>'
 
   homeInfoParams:
     Title: "Hi there \U0001F44B"
     Content: >
-      Welcome to demo of hugo's theme PaperMod.
-
-      - **PaperMod** is a simple but fast and responsive theme with useful feature-set that enhances UX.
 
   socialIcons:
     - name: email
-      url: "#"
+      url: "mailto:andyjpagdin@gmail.com"
     - name: linkedin
-      url: "#"
+      url: "https://linkedin.com/in/andypagdin"
     - name: github
-      url: "https://github.com/adityatelange/hugo-PaperMod"
-    - name: codepen
-      url: "#"
+      url: "https://github.com/andypagdin"
 
 privacy:
   vimeo:
