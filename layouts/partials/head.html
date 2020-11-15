@@ -1,0 +1,54 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Title -->
+<title>{{ if .IsHome }}{{else}}{{ if .Title }}{{ .Title }} - {{ end }}{{end}}{{ .Site.Title }}</title>
+<!-- Meta -->
+<meta name="keywords" content="{{ if .Params.keywords -}}
+    {{- range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- else }}
+    {{- range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- end -}}" />
+<meta name="description" content="{{- with .Description }}{{ . }}{{- else }}{{- if .IsPage}}
+    {{- .Summary | default (printf "%s - %s" .Title  .Site.Title) }}{{- else }}
+    {{- with .Site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
+<meta name="author" content="{{ (partial "author.html" . ) }}">
+<link rel="canonical" href="{{ .Permalink }}" />
+{{- if .Site.Params.analytics.google.SiteVerificationTag }}
+<meta name="google-site-verification" content="{{ .Site.Params.analytics.google.SiteVerificationTag }}" />
+{{- end}}
+<!-- Styles -->
+{{- $stylesheet := (resources.Match "css/*.css") | resources.Concat "assets/css/stylesheet.css" | minify | fingerprint -}}
+<link href="{{ $stylesheet.Permalink }}" integrity="{{ $stylesheet.Data.Integrity }}" crossorigin="anonymous" rel="preload stylesheet"
+    as="style">
+<!-- Favicons -->
+<link rel="manifest" href="{{ "site.webmanifest" | absURL }}">
+{{ if .IsHome }}
+<link rel="icon" href="favicon.ico">
+<link rel="icon" href="favicon-16x16.png">
+<link rel="icon" href="favicon-32x32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+{{ else }}
+<link rel="icon" href="../../favicon.ico">
+<link rel="icon" href="../../favicon-16x16.png">
+<link rel="icon" href="../../favicon-32x32.png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+{{ end }}
+
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<!-- Generator -->
+{{- hugo.Generator }}
+<!-- RSS -->
+{{- range .AlternativeOutputFormats -}}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
+{{ end -}}
+{{- range .Translations -}}
+<link rel="alternate" hreflang="{{- .Lang -}}" href="{{- .Permalink -}}" />
+{{ end }}
+{{- partial "extend_head.html" . -}}
+<!-- Misc -->
+{{- if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production") }}
+{{- template "_internal/google_analytics_async.html" . }}
+{{- template "partials/templates/opengraph.html" . }}
+{{- template "partials/templates/twitter_cards.html" . }}
+{{- template "partials/templates/schema_json.html" . }}
+{{- end }}

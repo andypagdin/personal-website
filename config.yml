@@ -1,9 +1,9 @@
-baseURL: "https://andypagdin.com"
 title: Andy Pagdin - Software Engineer
 paginate: 5
 theme: hugo-PaperMod
 enableInlineShortcodes: true
 enableRobotsTXT: true
+relativeURLs: true
 
 minify:
   disableXML: true
